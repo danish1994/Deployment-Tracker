@@ -1,11 +1,17 @@
-import React, {useEffect, useState} from 'react';
-import {Github} from "./Github";
+import React from 'react';
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Link,
+} from "react-router-dom";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
-import {RepoCard} from "./RepoCard";
 import makeStyles from "@material-ui/core/styles/makeStyles";
+import {Home} from "./Home";
+import {Repo} from "./Repo";
 
 const useStyles = makeStyles({
     container: {
@@ -15,34 +21,35 @@ const useStyles = makeStyles({
         alignItems: 'center',
         flexDirection: 'row',
         marginTop: 20
+    },
+    link: {
+        color: "white",
+        textDecoration: "none"
     }
 });
 
 function App() {
     const classes = useStyles();
 
-    const [repos, setRepos] = useState([]);
-    useEffect(() => {
-        Github.repos('codalien').then((res) => {
-            setRepos(res);
-        });
-    }, [setRepos]);
-
     return (
-        <>
+        <Router>
             <AppBar position="static">
                 <Toolbar>
-                    <Typography variant="h6">
-                        Deployment Tracker
-                    </Typography>
+                    <Link to={'/'} className={classes.link}>
+                        <Typography variant="h6">
+                            Deployment Tracker
+                        </Typography>
+                    </Link>
                 </Toolbar>
             </AppBar>
+
             <Container className={classes.container}>
-                {
-                    repos.map((repo) => <RepoCard repo={repo}/>)
-                }
+                <Switch>
+                    <Route path="/repo/:id" render={Repo}/>
+                    <Route path="/" render={Home}/>
+                </Switch>
             </Container>
-        </>
+        </Router>
     );
 }
 

@@ -1,4 +1,5 @@
 import React from 'react'
+import {Link} from 'react-router-dom';
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
@@ -21,11 +22,14 @@ const useStyles = makeStyles({
         justifyContent: 'space-around',
         alignItems: 'center'
     },
+    link: {
+        textDecoration: 'none'
+    }
 });
 
 export const RepoCard = (props) => {
     const classes = useStyles();
-    const {repo: {name, html_url, pushed_at} = {}} = props;
+    const {repo: {name, html_url, pushed_at, url} = {}} = props;
 
     return <Card className={classes.root}>
         <CardContent>
@@ -47,14 +51,13 @@ export const RepoCard = (props) => {
             >
                 Goto Repo
             </Button>
-            <Button
-                onClick={() => {
-
-                }}
-                size="medium"
-            >
-                Track
-            </Button>
+            <Link to={`/repo/${window.btoa(url)}`} className={classes.link}>
+                <Button
+                    size="medium"
+                >
+                    Track
+                </Button>
+            </Link>
         </CardActions>
     </Card>
 }

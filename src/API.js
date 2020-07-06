@@ -1,6 +1,5 @@
 import config from 'local-config';
 
-const baseUrl = 'https://api.github.com';
 const getHeaders = () => {
     return {
         'Authorization': `token ${config.GITHUB_API_KEY}`,
@@ -8,10 +7,8 @@ const getHeaders = () => {
     };
 };
 
-console.log(getHeaders())
-
 export const GET = (path) => {
-    return fetch(baseUrl + path, {
+    return fetch(path, {
         method: 'GET',
         headers: getHeaders(),
     })
@@ -21,7 +18,7 @@ export const GET = (path) => {
 };
 
 export const POST = (path) => {
-    return fetch(baseUrl + path, {
+    return fetch(path, {
         method: 'POST',
         headers: getHeaders(),
     })
