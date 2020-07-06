@@ -45,8 +45,8 @@ function App() {
 
             <Container className={classes.container}>
                 <Switch>
-                    <Route path="/repo/:id" render={Repo}/>
-                    <Route path="/" render={Home}/>
+                    <Route path="/repo/:id" render={(props) => <Repo {...props}/>}/>
+                    <Route path="/"  render={(props) => <Home {...props}/>}/>
                 </Switch>
             </Container>
         </Router>
