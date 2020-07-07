@@ -1,5 +1,6 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useMemo, useState} from 'react';
 import {Github} from "./Github";
+import {Loader} from "./Loader";
 
 export const Repo = (props) => {
     const {match: {params: {id}}} = props;
@@ -26,9 +27,21 @@ export const Repo = (props) => {
         }
     }, [id]);
 
+    const taggedCategories = useMemo(() => {
+        const {tags = []} = data || {};
+        return Github.categorizeRegex(tags);
+    }, [data]);
+
+    console.log(taggedCategories);
+
     return (
         <>
-            id
+            <Loader loading={loading}/>
+            {
+                !loading && <>
+                    data
+                </>
+            }
         </>
     );
 }
