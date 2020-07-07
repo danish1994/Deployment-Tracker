@@ -14,7 +14,7 @@ export class Github {
         const tagRegex = new RegExp(config.TAG_NAME_REGEX);
         return tags.reduce((acc, tag) => {
             const {name} = tag;
-            const type = tagRegex.exec(name)[0];
+            const type = (tagRegex.exec(name) || [])[0];
             if (!acc[type]) {
                 acc[type] = [];
             }
