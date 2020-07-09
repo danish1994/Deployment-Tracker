@@ -18,9 +18,7 @@ export class Github {
             if (!acc[type]) {
                 acc[type] = [];
             }
-
             acc[type].push(tag);
-
             return acc;
         }, {});
     }
